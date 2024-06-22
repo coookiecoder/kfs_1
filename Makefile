@@ -11,6 +11,8 @@ NAME = UwU_Kernel
 
 all: $(NAME)
 
+CXXFLAGS = -m32 -fno-builtin -fno-exception -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs
+
 $(NAME): $(OBJ_ASM) $(OBJ_CPP)
 	ld -m elf_i386 -T linker.ld -o kernel $(OBJ_ASM) $(OBJ_CPP)
 
@@ -25,4 +27,4 @@ obj/asm/%.o: src/asm/%.asm
 
 obj/cpp/%.o: src/cpp/%.cpp
 	mkdir -p $(dir $@)
-	g++ -m32 -Ihdr -c $< -o $@
+	g++ $(CXXFLAGS) -Ihdr -c $< -o $@
